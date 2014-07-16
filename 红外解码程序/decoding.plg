@@ -1,0 +1,275 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+E:\项目\BOXZ\红外解码程序\decoding.uvproj
+Project File Date:  07/15/2014
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?BEEP?DECODING
+Program Size: data=53.0 xdata=0 code=703
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+decoding.c(57): warning C206: 'L1602_init': missing function-prototype
+decoding.c(58): warning C206: 'L1602_string': missing function-prototype
+decoding.c(58): error C267: 'L1602_string': requires ANSI-style prototype
+Target not created
+Build target 'Target 1'
+compiling decoding.c...
+decoding.c(113): warning C206: 'L1602_char': missing function-prototype
+decoding.c(113): error C267: 'L1602_char': requires ANSI-style prototype
+Target not created
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DELAY2?DECODING
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?BEEP?DECODING
+Program Size: data=52.0 xdata=0 code=501
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DELAY2?DECODING
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?BEEP?DECODING
+Program Size: data=54.0 xdata=0 code=505
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+decoding.c(30): error C202: 'BEEP': undefined identifier
+decoding.c(31): error C202: 'RELAY': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+Program Size: data=21.0 xdata=0 code=285
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?DECODING
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+    ADDRESS: 011CH
+Program Size: data=21.0 xdata=0 code=318
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?DECODING
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+    ADDRESS: 011CH
+Program Size: data=21.0 xdata=0 code=318
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?DECODING
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+    ADDRESS: 011CH
+Program Size: data=21.0 xdata=0 code=318
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+decoding.c(27): error C202: 'IR_val': undefined identifier
+decoding.c(30): error C141: syntax error near '='
+decoding.c(94): error C141: syntax error near '='
+Target not created
+Build target 'Target 1'
+compiling decoding.c...
+decoding.c(27): error C202: 'IR_val': undefined identifier
+decoding.c(30): error C141: syntax error near '='
+decoding.c(94): error C141: syntax error near '='
+Target not created
+Build target 'Target 1'
+compiling decoding.c...
+decoding.c(31): error C141: syntax error near '='
+decoding.c(95): error C141: syntax error near '='
+Target not created
+Build target 'Target 1'
+compiling decoding.c...
+decoding.c(31): error C141: syntax error near '='
+decoding.c(95): error C141: syntax error near '='
+Target not created
+Build target 'Target 1'
+compiling decoding.c...
+decoding.c(96): error C141: syntax error near '='
+Target not created
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?DECODING
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+    ADDRESS: 0108H
+Program Size: data=23.0 xdata=0 code=332
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?DECODING
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+    ADDRESS: 00F4H
+Program Size: data=23.0 xdata=0 code=312
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?DECODING
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+    ADDRESS: 00F4H
+Program Size: data=23.0 xdata=0 code=312
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?DECODING
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+    ADDRESS: 00F4H
+Program Size: data=23.0 xdata=0 code=308
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 3 Warning(s).
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?DECODING
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+    ADDRESS: 00F4H
+Program Size: data=23.0 xdata=0 code=308
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?DECODING
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+    ADDRESS: 00F4H
+Program Size: data=23.0 xdata=0 code=308
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+decoding.c(32): error C141: syntax error near 'void'
+Target not created
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY1?DECODING
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+    ADDRESS: 00F4H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  decoding.obj (DECODING)
+    ADDRESS: 0104H
+Program Size: data=23.0 xdata=0 code=318
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+Program Size: data=23.0 xdata=0 code=318
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+Program Size: data=23.0 xdata=0 code=318
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 0 Warning(s).
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling decoding.c...
+linking...
+Program Size: data=23.0 xdata=0 code=338
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+Program Size: data=23.0 xdata=0 code=312
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling decoding.c...
+linking...
+Program Size: data=23.0 xdata=0 code=316
+creating hex file from "decoding"...
+"decoding" - 0 Error(s), 0 Warning(s).

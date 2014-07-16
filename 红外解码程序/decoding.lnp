@@ -1,0 +1,4 @@
+"STARTUP.obj",
+"decoding.obj" 
+TO "decoding" 
+RAMSIZE(256) 

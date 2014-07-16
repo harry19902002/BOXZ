@@ -1,0 +1,4 @@
+"STARTUP.obj",
+"transmit.obj" 
+TO "transmit" 
+RAMSIZE(256) 
