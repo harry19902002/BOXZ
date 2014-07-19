@@ -11,7 +11,7 @@ bit  HWTx_Out;      //红外发射管脚的状态
 bit  Key_Flag,Flag;     //分别是：按键按下的标志位，定时器开始的标志位
 uint Count,Set_Count;    //控制定时时间的变量
 uchar Add;
-uchar Data,HWTx_Code,HWTx_data;
+uchar Data[4],HWTx_Code,HWTx_data;
 
 void delay(uint z) //延时时间约为 1ms*X  晶振为12M
 {
@@ -92,16 +92,16 @@ void Send_Code()
         while(Count<Set_Count); //产生4.5ms的低电平
         TR0=0;        //关闭定时器
 				
-				HWTx_Code=Add;    //发送八位地址
+				HWTx_Code=Data[0];    //发送八位地址
 				Send_Code8();
 				
-				HWTx_Code=~Add;    //发送八位地址反码
+				HWTx_Code=Data[1];    //发送八位地址反码
 				Send_Code8();
 				
-				HWTx_Code=Data;      //发送八位数据
+				HWTx_Code=Data[2];      //发送八位数据
 				Send_Code8();
 				
-				HWTx_Code=~Data;     //发送八位数据反码
+				HWTx_Code=Data[3];     //发送八位数据反码
 				Send_Code8();
 
           Set_Count=34;//准备产生4.5ms(13*340=4500)的低电平
@@ -148,6 +148,10 @@ void init_timer0()
 		TR0 = 1;				//定时器0开始计时
     ET0 = 1;        //使能定时器0中断
     EA = 1;
+		
+		Data[0]=0x80;
+		Data[1]=0x0f;
+		Data[2]=0x04;
 }
 // USER CODE END
 
@@ -165,7 +169,7 @@ void main(void)
            Key_Scan();    //按键扫描函数
           if(Key_Flag==1)   //按键按下的标志，是否置位
 					{
-						Data=0x30;
+						Data[3]=0x20;
 						Send_Code(); //发送数据
 						delay(500);  //延时0.1s
 						Key_Flag=0;  //按键按下标志位清零

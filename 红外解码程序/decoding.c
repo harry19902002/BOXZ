@@ -12,6 +12,8 @@ sbit LED1 = P3^5;
 sbit LED2 = P3^4;
 int IR_val;
 
+uchar receive_flag;
+
 uchar IRCOM[7];
 
 main()
@@ -27,15 +29,26 @@ main()
     delayms(10);                //延时
 		while(1)
 		{
-		switch(IR_val)
+		if(receive_flag==1)	{
+		receive_flag=0;
+		switch(IRCOM[3])
 			{
-				case 12:
-					LED1=1;
+				case 0x20:
+					LED1=0;
+					delayms(1000);
+				  	LED1=1;
+				break;
+				case 0x1e:
+					LED2=0;
+					delayms(1000);
+					LED2=1;
 				break;
 				default:
-					LED1=0;
+					LED1=1;
+					LED2=1;
 				break;
 			}
+		}
 		}
 	
 } //end main
@@ -71,25 +84,34 @@ void exint0() interrupt 0      //INT0中断入口
 	 { EX0=1;
 	 return;}                  //0.14ms计数过长自动离开。
       }                        //高电平计数完毕                
-     IRCOM[j]=IRCOM[j] >> 1;                  //数据最高位补“0”
-     if (N>=8) {IRCOM[j] = IRCOM[j] | 0x80;}  //数据最高位补“1”
+     IRCOM[j]=IRCOM[j] << 1;                  //数据最低位补“0”
+     if (N>=8) {IRCOM[j] = IRCOM[j] | 0x01;}  //数据最低位补“1”
      N=0;
   }//end for k
  }//end for j
-   
-   if (IRCOM[2]!=~IRCOM[3])
-   { EX0=1;
-     return; }
 
-   IRCOM[5]=IRCOM[2] & 0x0F;     //取键码的低四位
-   IRCOM[6]=IRCOM[2] >> 4;       //右移4次，高四位变为低四位
+	if(IRCOM[0]!=0x80||IRCOM[1]!=0x0f||IRCOM[2]!=0x04)
+	{	
+		IRCOM[3]=0x00;
+		EX0=1;
+		LED2=~LED2;
+		return;
+		}	
+	receive_flag=1;
+   
+//   if (IRCOM[2]!=~IRCOM[3])
+//   { EX0=1;
+//     return; }
+
+//   IRCOM[5]=IRCOM[2] & 0x0F;     //取键码的低四位
+//   IRCOM[6]=IRCOM[2] >> 4;       //右移4次，高四位变为低四位
 
 //////////////////////////
 //	LED=~LED;
 //L1602_char(2,10,IRCOM[5]);
 //L1602_char(2,9,IRCOM[6]);
      //beep();
-		 IR_val=IRCOM[5]+IRCOM[6]*16;
+//	 IR_val=IRCOM[5]+IRCOM[6]*16;
      EX0 = 1; 
 } 
 
