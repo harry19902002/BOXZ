@@ -128,7 +128,7 @@ void Send_Code()
          while(Count<Set_Count);
          TR0=0;
 
-		    Set_Count=50; //准备产生一瞬间的低电平，作为结束标志
+		Set_Count=50; //准备产生一瞬间的低电平，作为结束标志
         Flag=1;
         Count=0;
         TR0=1;
