@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_autolist"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="3dip"
+    android:paddingLeft="10dip" >
+
+    <ImageView
+        android:id="@+id/iv_op"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dip" >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/tv_op"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </TextView>
+
+</LinearLayout>

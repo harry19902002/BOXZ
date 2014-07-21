@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffffff" >
+
+    <RelativeLayout
+        android:id="@+id/rl_op"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp" >
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/btn_back" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_high"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_op"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp" >
+
+        <TextView
+            android:id="@+id/tv_highTitle"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:text="High"
+            android:textColor="#ff00ff00"
+            android:textSize="22sp" />
+
+        <SeekBar
+            android:id="@+id/sk_high"
+            android:layout_width="320dp"
+            android:layout_height="36dp"
+            android:layout_toRightOf="@id/tv_highTitle" />
+
+        <TextView
+            android:id="@+id/tv_highValue"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/sk_high"
+            android:text="255"
+            android:textColor="#ff000000"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_low"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_high"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:id="@+id/tv_lowTitle"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:text="Low"
+            android:textColor="#ff00ff00"
+            android:textSize="22sp" />
+
+        <SeekBar
+            android:id="@+id/sk_low"
+            android:layout_width="320dp"
+            android:layout_height="36dp"
+            android:layout_toRightOf="@id/tv_lowTitle" />
+
+        <TextView
+            android:id="@+id/tv_lowValue"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/sk_low"
+            android:text="255"
+            android:textColor="#ff000000"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_delay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_low"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:id="@+id/tv_delayTitle"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:text="Delay"
+            android:textColor="#ff00ff00"
+            android:textSize="22sp" />
+
+        <SeekBar
+            android:id="@+id/sk_delay"
+            android:layout_width="320dp"
+            android:layout_height="36dp"
+            android:layout_toRightOf="@id/tv_delayTitle" />
+
+        <TextView
+            android:id="@+id/tv_delayValue"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/sk_delay"
+            android:text="3s"
+            android:textColor="#ff000000"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+</RelativeLayout>
