@@ -1,0 +1,2 @@
+Change Pin Designator/Name:  Old Designator=U1-7 Old Name=P3.2/INT0 New Designator =P3.3/INT1/RSTOUT_LOW New Name=8
+Change Pin Designator/Name:  Old Designator=U1-8 Old Name=P3.3/INT1/RSTOUT_LOW New Designator =P3.2/INT0 New Name=7
