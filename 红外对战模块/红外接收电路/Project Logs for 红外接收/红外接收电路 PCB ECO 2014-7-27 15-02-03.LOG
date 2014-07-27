@@ -1,0 +1,16 @@
+Removed Pin From Net: NetName=OUT1 Pin=P2-2
+Removed Pin From Net: NetName=GND Pin=P2-3
+Removed Pin From Net: NetName=VCC Pin=P2-4
+Removed Pin From Net: NetName=OUT4 Pin=U1-3
+Added Component: Designator=P1(HDR1X4)
+Added Pin To Net: NetName=GND Pin=P1-1
+Added Pin To Net: NetName=VCC Pin=P1-2
+Added Pin To Net: NetName=OUT2 Pin=P1-3
+Added Pin To Net: NetName=OUT3 Pin=P1-4
+Added Pin To Net: NetName=GND Pin=P2-1
+Added Pin To Net: NetName=VCC Pin=P2-2
+Added Pin To Net: NetName=OUT4 Pin=P2-3
+Added Pin To Net: NetName=OUT1 Pin=P2-4
+Added Pin To Net: NetName=OUT4 Pin=U1-6
+Added Member To Class: ClassName=红外接收电路 Member=Component P1 Header 4
+Added Room: Name=红外接收电路
