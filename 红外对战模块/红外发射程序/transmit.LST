@@ -1,9 +1,9 @@
-C51 COMPILER V9.00   TRANSMIT                                                              07/19/2014 20:18:59 PAGE 1   
+C51 COMPILER V9.00   TRANSMIT                                                              08/13/2014 15:24:08 PAGE 1   
 
 
 C51 COMPILER V9.00, COMPILATION OF MODULE TRANSMIT
 OBJECT MODULE PLACED IN transmit.OBJ
-COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE transmit.c BROWSE DEBUG OBJECTEXTEND
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE transmit.c BROWSE DEBUG OBJECTEXTEND TABS(2)
 
 line level    source
 
@@ -14,208 +14,251 @@ line level    source
    5          #define uchar unsigned char
    6          
    7          sfr AUXR = 0x8e;     //Auxiliary register
-   8          sbit HWTx=P3^5;     //位声明：红外发射管脚
-   9          sbit key=P3^2;
-  10          bit  HWTx_Out;      //红外发射管脚的状态
-  11          bit  Key_Flag,Flag;     //分别是：按键按下的标志位，定时器开始的标志位
-  12          uint Count,Set_Count;    //控制定时时间的变量
-  13          uchar Add;
-  14          uchar Data[4],HWTx_Code,HWTx_data;
-  15          
-  16          void delay(uint z) //延时时间约为 1ms*X  晶振为12M
-  17          {
-  18   1              unsigned char i, j;
-  19   1                      for(;z>0;z--){
-  20   2                              _nop_();
-  21   2                              _nop_();
-  22   2                              i = 12;
-  23   2                              j = 169;
-  24   2                              do
-  25   2                              {
-  26   3                                      while (--j);
-  27   3                              } while (--i);
-  28   2                      }
-  29   1      }
-  30          
-  31          void Key_Scan()
-  32          {
-  33   1               uchar Key_Temp=0,i=0;
-  34   1               if(key!=1)
-  35   1                                      {
-  36   2                                              delay(50);
-  37   2                                              if(key!=1)
-  38   2                                              { 
-  39   3                                                      while(!key);
-  40   3                                                                              Key_Flag=1;
-  41   3                 }
-  42   2              } 
-  43   1      }
-  44          
-  45          void Send_Code8()
-  46          {
-  47   1               uchar i=0;   //循环变量
-  48   1               for(i=0;i<8;i++) //8位数据，顾循环8次
-  49   1              {
-  50   2                       Set_Count=0x002b;//准备发送长达0.56ms(13*43=560us)的方波
-  51   2                       Flag=1;    //置标志位(通过该标志位控制高低电平的转换)，因为高电平器件，38K的波形不会改变
-  52   2                                              Count=0;  //清零，准备计数
-  53   2                                              TR0=1;   //启动定时器
-  54   2                                              while(Count<Set_Count); //定时0.56ms，先发送0.56ms的高电平
-  55   2                                              TR0=0;    //关闭定时器
-C51 COMPILER V9.00   TRANSMIT                                                              07/19/2014 20:18:59 PAGE 2   
+   8          
+   9          sbit HWTx=P3^5;     //位声明：红外发射管脚
+  10          sbit key1=P3^0;
+  11          sbit key2=P3^2;
+  12          sbit key3=P3^4;
+  13          sbit key4=P3^1;
+  14          
+  15          bit  HWTx_Out;      //红外发射管脚的状态
+  16          bit  Key_Flag1,Key_Flag2,Key_Flag3,Key_Flag4,Flag;     //分别是：按键按下的标志位，定时器开始的标志位
+  17          uint Count,Set_Count;    //控制定时时间的变量
+  18          uchar Add;
+  19          uchar Data[4],HWTx_Code,HWTx_data;
+  20          
+  21          void delay(uint z) //延时时间约为 1ms*X  晶振为12M
+  22          {
+  23   1        unsigned char i, j;
+  24   1          for(;z>0;z--){
+  25   2            _nop_();
+  26   2            _nop_();
+  27   2            i = 12;
+  28   2            j = 169;
+  29   2            do
+  30   2            {
+  31   3              while (--j);
+  32   3            } while (--i);
+  33   2          }
+  34   1      }
+  35          
+  36          void Key_Scan()
+  37          {
+  38   1               uchar Key_Temp=0,i=0;
+  39   1               if(key1!=1 ||key2!=1 ||key3!=1 ||key4!=1 )
+  40   1              {
+  41   2                delay(50);
+  42   2                if(key1!=1)
+  43   2                { 
+  44   3                  while(!key1);
+  45   3                        Key_Flag1=1;
+  46   3                 }
+  47   2                 else if(key2!=1)
+  48   2                 {
+  49   3                   while(!key2)
+  50   3                     Key_Flag2=1;
+  51   3                 }
+  52   2                 else if(key3!=1)
+  53   2                 {
+  54   3                   while(!key3)
+  55   3                     Key_Flag3=1;
+C51 COMPILER V9.00   TRANSMIT                                                              08/13/2014 15:24:08 PAGE 2   
 
-  56   2      
-  57   2                                              if(HWTx_Code&0x80) //判断待发送的数据的最高位为1或0，
-  58   2                                              {       //将决定低电平时间的长短，便于接收装置的接收
-  59   3                                                              Set_Count=130; //如果是1，则产生1.69ms(13*130=1690us)的低电平
-  60   3                                              }
-  61   2                                              else
-  62   2                                              {
-  63   3                                                              Set_Count=43; //如果是0，则产生0.56ms(13*43=560us)的低电平
-  64   3                                              }
-  65   2      
-  66   2                                              Flag=0;    //用于产生低电平的标志位
-  67   2                                              Count=0;   //清零，准备计数
-  68   2                                              TR0=1;    //启动定时器
-  69   2                                              while(Count<Set_Count);//产生长达对应时间的低电平
-  70   2                                              TR0=0;       //关闭定时器
-  71   2      
-  72   2                                      HWTx_Code=HWTx_Code<<1;//左移一位，准备发送  
-  73   2                              }
-  74   1      }
-  75          
-  76          
-  77          void Send_Code()
-  78          {
-  79   1                                      uchar i=0;
-  80   1      
-  81   1              Set_Count=690;//准备产生9ms(13*690=9000)的高电平 
-  82   1              Flag=1;    //置标志位，取反(该标志位控制高低电平的转换)
-  83   1              Count=0;   //定时器计数
-  84   1              TR0=1;    //启动定时器
-  85   1              while(Count<Set_Count);//定时9ms，产生9ms的高电平
-  86   1              TR0=0;   //关闭定时器
-  87   1      
-  88   1              Set_Count=340;//准备产生4.5ms(13*340=4500)的低电平
-  89   1              Flag=0;    //置位，取反(该标志位控制高低电平的转换)
-  90   1                                      Count=0;   //清零，准备计数
-  91   1              TR0=1;    //启动定时器T0
-  92   1              while(Count<Set_Count); //产生4.5ms的低电平
-  93   1              TR0=0;        //关闭定时器
-  94   1                                      
-  95   1                                      HWTx_Code=Data[0];    //发送八位地址
-  96   1                                      Send_Code8();
-  97   1                                      
-  98   1                                      HWTx_Code=Data[1];    //发送八位地址反码
-  99   1                                      Send_Code8();
- 100   1                                      
- 101   1                                      HWTx_Code=Data[2];      //发送八位数据
- 102   1                                      Send_Code8();
- 103   1                                      
- 104   1                                      HWTx_Code=Data[3];     //发送八位数据反码
- 105   1                                      Send_Code8();
- 106   1      
- 107   1                Set_Count=34;//准备产生4.5ms(13*340=4500)的低电平
- 108   1                Flag=1;    //置位，取反(该标志位控制高低电平的转换)
- 109   1                Count=0;   //清零，准备计数
- 110   1                TR0=1;    //启动定时器T0
- 111   1                while(Count<Set_Count); //产生4.5ms的低电平
- 112   1                TR0=0;
- 113   1      
- 114   1              HWTx=0;   //置发射引脚的状态为高电平
- 115   1                                      delay(23);//延时23ms
- 116   1      
- 117   1              Set_Count=690; //准备产生9.12ms的低电平，作为结束标志
-C51 COMPILER V9.00   TRANSMIT                                                              07/19/2014 20:18:59 PAGE 3   
+  56   3                 }
+  57   2                 else if(key4!=1)
+  58   2                 {
+  59   3                   while(!key4)
+  60   3                     Key_Flag4=1;
+  61   3                 }
+  62   2              } 
+  63   1      }
+  64          
+  65          void Send_Code8()
+  66          {
+  67   1               uchar i=0;   //循环变量
+  68   1               for(i=0;i<8;i++) //8位数据，顾循环8次
+  69   1              {
+  70   2                       Set_Count=0x002b;//准备发送长达0.56ms(13*43=560us)的方波
+  71   2                       Flag=1;    //置标志位(通过该标志位控制高低电平的转换)，因为高电平器件，38K的波形不会改变
+  72   2                Count=0;  //清零，准备计数
+  73   2                TR0=1;   //启动定时器
+  74   2                while(Count<Set_Count); //定时0.56ms，先发送0.56ms的高电平
+  75   2                TR0=0;    //关闭定时器
+  76   2      
+  77   2                if(HWTx_Code&0x80) //判断待发送的数据的最高位为1或0，
+  78   2                {       //将决定低电平时间的长短，便于接收装置的接收
+  79   3                    Set_Count=130; //如果是1，则产生1.69ms(13*130=1690us)的低电平
+  80   3                }
+  81   2                else
+  82   2                {
+  83   3                    Set_Count=43; //如果是0，则产生0.56ms(13*43=560us)的低电平
+  84   3                }
+  85   2      
+  86   2                Flag=0;    //用于产生低电平的标志位
+  87   2                Count=0;   //清零，准备计数
+  88   2                TR0=1;    //启动定时器
+  89   2                while(Count<Set_Count);//产生长达对应时间的低电平
+  90   2                TR0=0;       //关闭定时器
+  91   2      
+  92   2              HWTx_Code=HWTx_Code<<1;//左移一位，准备发送  
+  93   2            }
+  94   1      }
+  95          
+  96          
+  97          void Send_Code()
+  98          {
+  99   1              uchar i=0;
+ 100   1      
+ 101   1              Set_Count=690;//准备产生9ms(13*690=9000)的高电平 
+ 102   1              Flag=1;    //置标志位，取反(该标志位控制高低电平的转换)
+ 103   1              Count=0;   //定时器计数
+ 104   1              TR0=1;    //启动定时器
+ 105   1              while(Count<Set_Count);//定时9ms，产生9ms的高电平
+ 106   1              TR0=0;   //关闭定时器
+ 107   1      
+ 108   1              Set_Count=340;//准备产生4.5ms(13*340=4500)的低电平
+ 109   1              Flag=0;    //置位，取反(该标志位控制高低电平的转换)
+ 110   1              Count=0;   //清零，准备计数
+ 111   1              TR0=1;    //启动定时器T0
+ 112   1              while(Count<Set_Count); //产生4.5ms的低电平
+ 113   1              TR0=0;        //关闭定时器
+ 114   1              
+ 115   1              HWTx_Code=Data[0];    //发送八位地址
+ 116   1              Send_Code8();
+ 117   1              
+C51 COMPILER V9.00   TRANSMIT                                                              08/13/2014 15:24:08 PAGE 3   
 
- 118   1              Flag=1;
- 119   1              Count=0;
- 120   1              TR0=1;
- 121   1               while(Count<Set_Count);//产生时间长达9.12ms的低电平
- 122   1               TR0=0;       //关闭定时器
- 123   1      
- 124   1               Set_Count=170;//准备产生2.1ms的高电平，作为结束标志
- 125   1               Flag=0;
- 126   1               Count=0;
- 127   1               TR0=1;
- 128   1               while(Count<Set_Count);
- 129   1               TR0=0;
- 130   1      
- 131   1                      Set_Count=50; //准备产生一瞬间的低电平，作为结束标志
- 132   1              Flag=1;
- 133   1              Count=0;
- 134   1              TR0=1;
- 135   1               while(Count<Set_Count);//产生时间长达一瞬间的低电平
- 136   1               TR0=0;       //关闭定时器
- 137   1                                       
- 138   1                                       HWTx=1;
- 139   1      }
- 140          
- 141          void init_timer0()
- 142          {
- 143   1                      AUXR |= 0x80;           //定时器时钟1T模式
- 144   1                      TMOD &= 0xF0;           //设置定时器模式
- 145   1                      TL0 = 0x64;                     //设置定时初值
- 146   1                      TH0 = 0xFF;                     //设置定时初值
- 147   1                      TF0 = 0;                                //清除TF0标志
- 148   1                      TR0 = 1;                                //定时器0开始计时
- 149   1          ET0 = 1;        //使能定时器0中断
- 150   1          EA = 1;
- 151   1                      
- 152   1                      Data[0]=0x80;
- 153   1                      Data[1]=0x0f;
- 154   1                      Data[2]=0x04;
- 155   1      }
- 156          // USER CODE END
- 157          
- 158          void main(void)
- 159          {
- 160   1             init_timer0(); //定时器T0的初始化函数
- 161   1                               Add=0x00;
- 162   1             Count=0;    //定时器计数值清零
- 163   1             Flag=0;     //高低电平变化标志位
- 164   1             HWTx_Out=0;    //发射引脚的状态
- 165   1      
- 166   1        while(1)
- 167   1        {
- 168   2      
- 169   2                 Key_Scan();    //按键扫描函数
- 170   2                if(Key_Flag==1)   //按键按下的标志，是否置位
- 171   2                                              {
- 172   3                                                      Data[3]=0x20;
- 173   3                                                      Send_Code(); //发送数据
- 174   3                                                      delay(500);  //延时0.1s
- 175   3                                                      Key_Flag=0;  //按键按下标志位清零
- 176   3                }
- 177   2          }
- 178   1      }
- 179          
-C51 COMPILER V9.00   TRANSMIT                                                              07/19/2014 20:18:59 PAGE 4   
+ 118   1              HWTx_Code=Data[1];    //发送八位地址反码
+ 119   1              Send_Code8();
+ 120   1              
+ 121   1              HWTx_Code=Data[2];      //发送八位数据
+ 122   1              Send_Code8();
+ 123   1              
+ 124   1              HWTx_Code=Data[3];     //发送八位数据反码
+ 125   1              Send_Code8();
+ 126   1      
+ 127   1                Set_Count=34;//准备产生4.5ms(13*340=4500)的低电平
+ 128   1                Flag=1;    //置位，取反(该标志位控制高低电平的转换)
+ 129   1                Count=0;   //清零，准备计数
+ 130   1                TR0=1;    //启动定时器T0
+ 131   1                while(Count<Set_Count); //产生4.5ms的低电平
+ 132   1                TR0=0;
+ 133   1      
+ 134   1              HWTx=0;   //置发射引脚的状态为高电平
+ 135   1              delay(23);//延时23ms
+ 136   1      
+ 137   1              Set_Count=690; //准备产生9.12ms的低电平，作为结束标志
+ 138   1              Flag=1;
+ 139   1              Count=0;
+ 140   1              TR0=1;
+ 141   1               while(Count<Set_Count);//产生时间长达9.12ms的低电平
+ 142   1               TR0=0;       //关闭定时器
+ 143   1      
+ 144   1               Set_Count=170;//准备产生2.1ms的高电平，作为结束标志
+ 145   1               Flag=0;
+ 146   1               Count=0;
+ 147   1               TR0=1;
+ 148   1               while(Count<Set_Count);
+ 149   1               TR0=0;
+ 150   1      
+ 151   1          Set_Count=50; //准备产生一瞬间的低电平，作为结束标志
+ 152   1              Flag=1;
+ 153   1              Count=0;
+ 154   1              TR0=1;
+ 155   1               while(Count<Set_Count);//产生时间长达一瞬间的低电平
+ 156   1               TR0=0;       //关闭定时器
+ 157   1               
+ 158   1               HWTx=1;
+ 159   1      }
+ 160          
+ 161          void init_timer0()
+ 162          {
+ 163   1          AUXR |= 0x80;   //定时器时钟1T模式
+ 164   1          TMOD &= 0xF0;   //设置定时器模式
+ 165   1          TL0 = 0x64;     //设置定时初值
+ 166   1          TH0 = 0xFF;     //设置定时初值
+ 167   1          TF0 = 0;        //清除TF0标志
+ 168   1          TR0 = 1;        //定时器0开始计时
+ 169   1          ET0 = 1;        //使能定时器0中断
+ 170   1          EA = 1;
+ 171   1          
+ 172   1          Data[0]=0x80;
+ 173   1          Data[1]=0x0f;
+ 174   1          Data[2]=0x04;
+ 175   1      }
+ 176          // USER CODE END
+ 177          
+ 178          void main(void)
+ 179          {
+C51 COMPILER V9.00   TRANSMIT                                                              08/13/2014 15:24:08 PAGE 4   
 
- 180          void tm0_isr() interrupt 1 using 1 //定时器T0
- 181          {
- 182   1                Count++;   //变量计数，可得出进入T0的次数，便可得出定时时间
- 183   1                if(Flag==1)
- 184   1               {
- 185   2                        HWTx_Out=~HWTx_Out;  //取反，不断输出周期为26us的方波
- 186   2               }
- 187   1              else
- 188   1              {
- 189   2                                              HWTx_Out=0;  //这里决定在接受程序，是以高电平还是低电平作为判断1和0的依据
- 190   2             }
- 191   1              HWTx=HWTx_Out;  
- 192   1      }
- 193          // USER CODE END
+ 180   1             init_timer0(); //定时器T0的初始化函数
+ 181   1             Add=0x00;
+ 182   1             Count=0;    //定时器计数值清零
+ 183   1             Flag=0;     //高低电平变化标志位
+ 184   1             HWTx_Out=0;    //发射引脚的状态
+ 185   1      
+ 186   1        while(1)
+ 187   1        {
+ 188   2      
+ 189   2                 Key_Scan();    //按键扫描函数
+ 190   2                if(Key_Flag1==1)   //按键按下的标志，是否置位
+ 191   2                {
+ 192   3                  Data[3]=0x20;
+ 193   3                  Send_Code(); //发送数据
+ 194   3                  delay(500);  //延时0.1s
+ 195   3                  Key_Flag1=0;  //按键按下标志位清零
+ 196   3                }
+ 197   2                else if (Key_Flag2==1)
+ 198   2                {
+ 199   3                  Data[3]=0x30;
+ 200   3                  Send_Code();
+ 201   3                  delay(500);
+ 202   3                  Key_Flag2=0;
+ 203   3                }
+ 204   2                else if (Key_Flag3==1)
+ 205   2                {
+ 206   3                  Data[3]=0x40;
+ 207   3                  Send_Code();
+ 208   3                  delay(500);
+ 209   3                  Key_Flag3=0;
+ 210   3                }
+ 211   2                else if (Key_Flag4==1)
+ 212   2                {
+ 213   3                  Data[4]=0x50;
+ 214   3                  Send_Code();
+ 215   3                  delay(500);
+ 216   3                  Key_Flag4=0;
+ 217   3                }
+ 218   2          }
+ 219   1      }
+ 220          
+ 221          void tm0_isr() interrupt 1 using 1 //定时器T0
+ 222          {
+ 223   1                Count++;   //变量计数，可得出进入T0的次数，便可得出定时时间
+ 224   1                if(Flag==1)
+ 225   1               {
+ 226   2                        HWTx_Out=~HWTx_Out;  //取反，不断输出周期为26us的方波
+ 227   2               }
+ 228   1              else
+ 229   1              {
+ 230   2                HWTx_Out=0;  //这里决定在接受程序，是以高电平还是低电平作为判断1和0的依据
+ 231   2             }
+ 232   1              HWTx=HWTx_Out;  
+ 233   1      }
+ 234          // USER CODE END
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    435    ----
+   CODE SIZE        =    524    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
+C51 COMPILER V9.00   TRANSMIT                                                              08/13/2014 15:24:08 PAGE 5   
+
    DATA SIZE        =     11       3
    IDATA SIZE       =   ----    ----
-   BIT SIZE         =      3    ----
+   BIT SIZE         =      6    ----
 END OF MODULE INFORMATION.
 
 

@@ -3,8 +3,8 @@
 <pre>
 <h1>礦ision Build Log</h1>
 <h2>Project:</h2>
-E:\项目\github\ZZZ\红外发射程序\transmit.uvproj
-Project File Date:  07/19/2014
+E:\项目\GitHub\BOXZ\红外对战模块\红外发射程序\transmit.uvproj
+Project File Date:  08/13/2014
 
 <h2>Output:</h2>
 Build target 'Target 1'
@@ -16,7 +16,31 @@ creating hex file from "transmit"...
 "transmit" - 0 Error(s), 0 Warning(s).
 Build target 'Target 1'
 compiling transmit.c...
+TRANSMIT.C(45): error C202: 'Key_Flag': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling transmit.c...
+TRANSMIT.C(208): warning C209: '_delay': too few actual parameters
+TRANSMIT.C(215): warning C206: 'dalay': missing function-prototype
 linking...
-Program Size: data=22.3 xdata=0 code=453
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  DALAY
+    MODULE:  transmit.obj (TRANSMIT)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  DALAY
+    MODULE:  transmit.obj (TRANSMIT)
+    ADDRESS: 0921H
+Program Size: data=22.6 xdata=0 code=546
+creating hex file from "transmit"...
+"transmit" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling transmit.c...
+TRANSMIT.C(215): warning C206: 'dalay': missing function-prototype
+TRANSMIT.C(215): error C267: 'dalay': requires ANSI-style prototype
+Target not created
+Build target 'Target 1'
+compiling transmit.c...
+linking...
+Program Size: data=22.6 xdata=0 code=542
 creating hex file from "transmit"...
 "transmit" - 0 Error(s), 0 Warning(s).

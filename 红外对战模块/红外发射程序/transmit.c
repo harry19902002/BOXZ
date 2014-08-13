@@ -5,10 +5,15 @@
 #define uchar unsigned char
 
 sfr AUXR = 0x8e;     //Auxiliary register
+
 sbit HWTx=P3^5;     //位声明：红外发射管脚
-sbit key=P3^2;
+sbit key1=P3^0;
+sbit key2=P3^2;
+sbit key3=P3^4;
+sbit key4=P3^1;
+
 bit  HWTx_Out;      //红外发射管脚的状态
-bit  Key_Flag,Flag;     //分别是：按键按下的标志位，定时器开始的标志位
+bit  Key_Flag1,Key_Flag2,Key_Flag3,Key_Flag4,Flag;     //分别是：按键按下的标志位，定时器开始的标志位
 uint Count,Set_Count;    //控制定时时间的变量
 uchar Add;
 uchar Data[4],HWTx_Code,HWTx_data;
@@ -31,14 +36,29 @@ void delay(uint z) //延时时间约为 1ms*X  晶振为12M
 void Key_Scan()
 {
          uchar Key_Temp=0,i=0;
-         if(key!=1)
+         if(key1!=1 ||key2!=1 ||key3!=1 ||key4!=1 )
 				{
 					delay(50);
-					if(key!=1)
+					if(key1!=1)
 					{ 
-						while(!key);
-									Key_Flag=1;
+						while(!key1);
+									Key_Flag1=1;
            }
+					 else if(key2!=1)
+					 {
+						 while(!key2)
+							 Key_Flag2=1;
+					 }
+					 else if(key3!=1)
+					 {
+						 while(!key3)
+							 Key_Flag3=1;
+					 }
+					 else if(key4!=1)
+					 {
+						 while(!key4)
+							 Key_Flag4=1;
+					 }
         } 
 }
 
@@ -167,13 +187,34 @@ void main(void)
   {
 
            Key_Scan();    //按键扫描函数
-          if(Key_Flag==1)   //按键按下的标志，是否置位
+          if(Key_Flag1==1)   //按键按下的标志，是否置位
 					{
 						Data[3]=0x20;
 						Send_Code(); //发送数据
 						delay(500);  //延时0.1s
-						Key_Flag=0;  //按键按下标志位清零
+						Key_Flag1=0;  //按键按下标志位清零
           }
+					else if (Key_Flag2==1)
+					{
+						Data[3]=0x30;
+						Send_Code();
+						delay(500);
+						Key_Flag2=0;
+					}
+					else if (Key_Flag3==1)
+					{
+						Data[3]=0x40;
+						Send_Code();
+						delay(500);
+						Key_Flag3=0;
+					}
+					else if (Key_Flag4==1)
+					{
+						Data[4]=0x50;
+						Send_Code();
+						delay(500);
+						Key_Flag4=0;
+					}
     }
 }
 

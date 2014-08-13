@@ -8,8 +8,10 @@ void delay(uchar x);  		//x*0.14MS
 void delayms(int ms);
 
 sbit IRIN = P3^2;         //红外接收器数据线
-sbit LED1 = P3^5;
-sbit LED2 = P3^4;
+sbit LED1 = P3^4;
+sbit LED2 = P3^3;
+sbit LED3 = P3^1;
+sbit LED4 = P3^0;
 int IR_val;
 
 uchar receive_flag;
@@ -36,13 +38,21 @@ main()
 				case 0x20:
 					LED1=0;
 					delayms(1000);
-				  	LED1=1;
+				  LED1=1;
 				break;
-				case 0x1e:
+				case 0x30:
 					LED2=0;
 					delayms(1000);
 					LED2=1;
 				break;
+				case 0x40:
+					LED3=0;
+				delayms(1000);
+					LED3=1;
+				case 0x50:
+					LED4=1;
+					delayms(1000);
+					LED4=0;
 				default:
 					LED1=1;
 					LED2=1;
